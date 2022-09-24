@@ -53,13 +53,22 @@ class jarro:
         return f'Cap: {self.cap} - At: {self.at} - Tgt: {self.tgt}\n'
 
 '''Functions'''
-def poss(root) -> Node: #Verifica se há possibilidade de solução
+def poss(root) -> Node:
+    ''' Recebe um nó, em geral a raiz da árvore para verificar se a solução é possível.
+        Para os jarros terem solução, é necessário que a soma das quantidades atuais de água seja igual à soma de quantidades de água objetivo.
+        Retorno:
+             1: solução possível
+            -1: solução impossível''' #Verifica se há possibilidade de solução
     if ((root.j1.at+root.j2.at+root.j3.at)==(root.j1.tgt+root.j2.tgt+root.j3.tgt)):
         return 1
     else:
         return -1
 
 def nextGen(node,gen) -> Node: # Dado um nó, cria as próximas gerações
+    ''' Recebe um nó como argumento e cria a próxima geração deste nó, fazendo todas as possíveis combinações de trocas entre os jarros, cada uma delas gerando um novo nó
+        da geração recebida por parâmetro
+        Retorno:
+            6 nós filhos do nó pai [cd1,cd2,cd3,cd4,cd5,cd6]'''
     child = []
 
     cd1 = node.copy()
@@ -101,6 +110,7 @@ def nextGen(node,gen) -> Node: # Dado um nó, cria as próximas gerações
     return cd1,cd2,cd3,cd4,cd5,cd6 # Retorna 6 nós com as possibilidade de transferência
     
 def verify(N) -> Node: # Verifica se o nó possui a solução do problema
+    '''Verifica se o nó recebido é a solução do problema, ou seja, a quantidade atual em cada jarro é igual à quantidade objetivo'''
     j1 = (N.j1.at,N.j1.tgt)
     j2 = (N.j2.at,N.j2.tgt)
     j3 = (N.j3.at,N.j3.tgt)
